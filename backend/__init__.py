@@ -13,7 +13,11 @@ app_root = r'/var/www/andremottier.com/backend/'
 def create_app():
     app = Flask(__name__)
     
-    config = AppConfigBuilder(app, os.path.join(app_root, 'conf.yaml.secret'))
+    config = AppConfigBuilder(
+        app, 
+        os.path.join(app_root, 'conf.yaml'),
+        os.path.join(app_root, 'secrets.yaml.secret')
+    )
     config.setFlaskConfig()
     
     db.init_app(app)
