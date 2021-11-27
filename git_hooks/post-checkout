@@ -1,0 +1,82 @@
+#!/bin/bash
+################################################################################
+# Purpose:
+#     Convert template files to usable files to make working in git branches easier
+#     For each tracked file
+#         - Copy and rename template files based on git branch 
+#         - Decrypt encrypted files before copying
+#
+# Context: Git hook called after successful checkout 
+#
+# Install
+#     Place in .git/hooks directory
+#     Must have gpg installed
+#     Set GPGHOMEDIR to GPG file location
+#     Set other constants as needed
+#
+# Notes:
+#     - Encrypted files must end in .secret
+#     - Tracked file paths are relative to git root
+#     - only "dev" and "main" branches are currently defined
+#     - branch name must map to a 3-letter file extension (.dev or .prd)
+#
+################################################################################
+#BRANCH="main"    # mock for testing/debugging
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+ROOT=$(git rev-parse --show-toplevel)
+GPGHOMEDIR="/home/www-data/.gnupg"
+SECRET_EXT=".secret"
+TRACKED_FILES=( "backend/conf.yaml.dev"             \
+               "backend/conf.yaml.prd"              \
+               "backend/secrets.yaml.dev.secret"    \
+               "backend/secrets.yaml.prd.secret"    )
+
+# test cases
+#TRACKED_FILES=( "backend/exists.yaml.dev"           \    
+#                "backend/exists.yaml.prd"           \
+#                "backend/missng.yaml.dev"           \
+#                "backend/exists.yaml.dev.secret"    \
+#                "backend/exists.yaml.prd.secret"    \
+#                "backend/missng.yaml.dev.secret"    )
+
+echo -e "Checkout successful. Setting up environment for branch: $BRANCH\n"
+
+#####################################################
+### Branch mappings
+#####################################################
+if [ $BRANCH == "dev" ]; then
+    ext="dev"
+elif [ $BRANCH == "main" ]; then
+    ext="prd"
+else
+    echo -e "Branch: $BRANCH undefined. Quitting setup."
+    exit 1
+fi;
+
+#####################################################
+### Decrypt and move files as needed
+#####################################################
+for t in ${TRACKED_FILES[@]}; do
+    ofn=$ROOT/$t 
+
+    if [ ${ofn:${#ofn}-3} == $ext ]; then
+        nfn=$ROOT/${t:0:${#t}-4}
+
+        if [ -f "$ofn" ]; then
+            echo -e "Moving unencrypted files:"
+            echo -ne "\t"
+            cp -v $ofn $nfn
+        else
+            echo Warning: $ofn not found
+        fi
+    elif [ ${ofn:${#ofn}-10} == $ext$SECRET_EXT ]; then
+        nfn=$ROOT/${t:0:${#t}-11}
+        
+        if [ -f "$ofn" ]; then
+            echo -e "Decrypting and writing secrets:\n"
+            sudo gpg --homedir $GPGHOMEDIR -dq $ofn > $nfn
+        else
+            echo Warning: $ofn not found
+        fi
+    fi
+done

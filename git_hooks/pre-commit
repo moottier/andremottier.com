@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Arg 1: $1 // 2: $2 // 3: $3"
-echo "Generating config file"
-echo "Encrypting secrets file"
-echo "Decrypting secrets file"
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo "Starting commit for branch: $BRANCH"
+echo "Hiding secrets"
+git secret hide
