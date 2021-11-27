@@ -1,7 +1,7 @@
 # apache wsgi configuration
 import sys
-import logging
 import os
+import logging
 
 logging.basicConfig(stream=sys.stderr)
 

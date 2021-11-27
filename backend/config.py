@@ -41,4 +41,3 @@ class AppConfigBuilder:
         self.app.config['MYSQL_DATABASE_PORT'] = db_port
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db}'        
-        
