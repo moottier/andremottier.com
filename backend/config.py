@@ -10,9 +10,11 @@ class AppConfigBuilder:
         self.secret_path = secret_path
         self.secretGetter = SecretGetter(secret_path)    # TODO: don't need local file to be encrypted
         self._conf = yaml.safe_load(conf_path)
+        self._secrets = yaml.safe_load(secret_path)
 
     def getSecret(self, key):
-        return self.secretGetter.getSecret(key)
+        #return self.secretGetter.getSecret(key)
+        return self._secrets[key]
 
     def getConf(self, key):
         return self._conf[key]
