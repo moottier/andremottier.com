@@ -149,6 +149,9 @@ dmypy.json
 cython_debug/
 .gitsecret/keys/random_seed
 !*.secret
+
+# App 
 backend/secrets.yaml
 backend/secrets.yaml.dev
 backend/secrets.yaml.prd
+backend/conf.yaml
