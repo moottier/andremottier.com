@@ -8,16 +8,19 @@ class AppConfigBuilder:
         self.app = app
         self.conf_path = conf_path
         self.secret_path = secret_path
-        self.secretGetter = SecretGetter(secret_path)    # TODO: don't need local file to be encrypted
-        with open(conf_path, 'r') as strm:
-            self._conf = yaml.safe_load(strm)
-        self._secrets = yaml.safe_load(secret_path)
+        #self.secretGetter = SecretGetter(secret_path)    # TODO: don't need local file to be encrypted
+        with open(conf_path, 'r') as strm_1, open(secret_path, 'r') as strm_2:
+            self._conf = yaml.safe_load(strm_1)
+            self._secrets = yaml.safe_load(strm_2)
 
     def getSecret(self, key):
         #return self.secretGetter.getSecret(key)
         return self._secrets[key]
 
     def getConf(self, key):
+        print('self._secrets: ', self._secrets, file=sys.stdout)
+        print('key: ', key, file=sys.stdout)
+        print('self.secret_path: ', self.secret_path, file=sys.stdout)
         return self._conf[key]
 
     def setFlaskConfig(self):
@@ -29,11 +32,11 @@ class AppConfigBuilder:
         app_env = self.getConf('app-env')
         app_debug = self.getConf('app-debug')
         
-        app_key = self.getSecret('app-key')
+        app_secret = self.getSecret('app-secret')
         db_pass = self.getSecret('db-pass')
 
         # set flask config
-        self.app.config['SECRET_KEY'] = app_key
+        self.app.config['SECRET_KEY'] = app_secret
         self.app.config['FLASK_ENVIRONMENT'] = app_env
         self.app.config['DEBUG'] = app_debug
         

@@ -8,7 +8,7 @@ import sys
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
-if os.getcwd().find('dev') > -1:
+if __file__.find('dev') > -1:
     app_root = r'/var/www/dev.andremottier.com/backend/'
 else:
     app_root = r'/var/www/andremottier.com/backend/'
