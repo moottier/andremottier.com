@@ -74,7 +74,10 @@ for t in ${TRACKED_FILES[@]}; do
         
         if [ -f "$ofn" ]; then
             echo -e "Decrypting and writing secrets:\n"
-            sudo gpg --homedir $GPGHOMEDIR -dq $ofn > $nfn
+            echo -e "HOMEDIR: $GPGHOMEDIR"
+            echo -e "OFN: $ofn"
+            echo -e "NFN: $nfn"
+            sudo gpg --homedir $GPGHOMEDIR -dvv $ofn > $nfn
         else
             echo Warning: $ofn not found
         fi
