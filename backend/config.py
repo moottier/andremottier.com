@@ -8,23 +8,18 @@ class AppConfigBuilder:
         self.app = app
         self.conf_path = conf_path
         self.secret_path = secret_path
-        #self.secretGetter = SecretGetter(secret_path)    # TODO: don't need local file to be encrypted
         with open(conf_path, 'r') as strm_1, open(secret_path, 'r') as strm_2:
             self._conf = yaml.safe_load(strm_1)
             self._secrets = yaml.safe_load(strm_2)
 
     def getSecret(self, key):
-        #return self.secretGetter.getSecret(key)
         return self._secrets[key]
 
     def getConf(self, key):
-        print('self._secrets: ', self._secrets, file=sys.stdout)
-        print('key: ', key, file=sys.stdout)
-        print('self.secret_path: ', self.secret_path, file=sys.stdout)
         return self._conf[key]
 
     def setFlaskConfig(self):
-        # get raw secrets
+        # get settings
         db_user = self.getConf('db-user')
         db = self.getConf('db')
         db_host = self.getConf('db-host')
