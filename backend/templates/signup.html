@@ -11,6 +11,7 @@
             </div>
         {% endif %}
         {% endwith %}
+        {% if registration_enabled %}
         <form method="POST" action="/signup">
             <div class="field">
                 <div class="control">
@@ -32,6 +33,9 @@
 
             <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
         </form>
+        {% else %}
+        <div><p>Sorry, registration is currently disabled.</p></div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -30,6 +30,8 @@ class AppConfigBuilder:
         app_secret = self.getSecret('app-secret')
         db_pass = self.getSecret('db-pass')
 
+        registration_allowed = self.getConf('registration-allowed')
+
         # set flask config
         self.app.config['SECRET_KEY'] = app_secret
         self.app.config['FLASK_ENVIRONMENT'] = app_env
@@ -41,4 +43,6 @@ class AppConfigBuilder:
         self.app.config['MYSQL_DATABASE_HOST'] = db_host
         self.app.config['MYSQL_DATABASE_PORT'] = db_port
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        self.app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db}'        
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db}'
+
+        self.app.config['REGISTRATION_ALLOWED'] = registration_allowed
