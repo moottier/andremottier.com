@@ -159,3 +159,6 @@ backend/conf.yaml
 # temp
 backend/secrets.yaml.dev.secret
 backend/secrets.yaml.prd.secret
+
+# secrets
+test.txt
