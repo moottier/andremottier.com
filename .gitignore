@@ -155,3 +155,7 @@ backend/secrets.yaml
 backend/secrets.yaml.dev
 backend/secrets.yaml.prd
 backend/conf.yaml
+
+# temp
+backend/secrets.yaml.dev.secret
+backend/secrets.yaml.prd.secret
