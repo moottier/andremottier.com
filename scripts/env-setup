@@ -25,11 +25,15 @@
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 ROOT=$(git rev-parse --show-toplevel)
 GPGHOMEDIR="/home/www-data/.gnupg"
-SECRET_EXT=".secret"
-TRACKED_FILES=( "backend/conf.yaml.dev"             \
-               "backend/conf.yaml.prd"              \
-               "backend/secrets.yaml.dev.secret"    \
-               "backend/secrets.yaml.prd.secret"    )
+FILE_EXT_SEP="."
+FILE_EXT_SEP_LEN=${#FILE_EXT_SEP}
+SECRET_EXT="secret"
+SECRET_EXT_LEN=${#SECRET_EXT}
+ENV_EXT_LEN=3    # 3 chars plus .
+TRACKED_FILES=( "backend/conf.yaml.dev"              \
+                "backend/conf.yaml.prd"              \
+                "backend/secrets.yaml.dev.secret"    \
+                "backend/secrets.yaml.prd.secret"    )
 
 # test cases
 #TRACKED_FILES=( "backend/exists.yaml.dev"           \    
@@ -39,17 +43,17 @@ TRACKED_FILES=( "backend/conf.yaml.dev"             \
 #                "backend/exists.yaml.prd.secret"    \
 #                "backend/missng.yaml.dev.secret"    )
 
-echo -e "Checkout successful. Setting up environment for branch: $BRANCH\n"
+echo "Checkout successful. Setting up environment for branch '$BRANCH'"
 
 #####################################################
 ### Branch mappings
 #####################################################
 if [ $BRANCH == "dev" ]; then
-    ext="dev"
+    this_env="dev"
 elif [ $BRANCH == "main" ]; then
-    ext="prd"
+    this_env="prd"
 else
-    echo -e "Branch: $BRANCH undefined. Quitting setup."
+    echo -e "No environment mapping found for branch '$BRANCH'. Quitting setup."
     exit 1
 fi;
 
@@ -58,28 +62,38 @@ fi;
 #####################################################
 for t in ${TRACKED_FILES[@]}; do
     ofn=$ROOT/$t 
+    ofn_len=${#ofn}
+    nfn=""
+    if [ ! -f "$ofn" ]; then
+        echo "Warning: $ofn not found"
+        continue    # file does not exist
+    fi
 
-    if [ ${ofn:${#ofn}-3} == $ext ]; then
-        nfn=$ROOT/${t:0:${#t}-4}
-
-        if [ -f "$ofn" ]; then
-            echo -e "Moving unencrypted files:"
-            echo -ne "\t"
-            cp -v $ofn $nfn
-        else
-            echo Warning: $ofn not found
-        fi
-    elif [ ${ofn:${#ofn}-10} == $ext$SECRET_EXT ]; then
-        nfn=$ROOT/${t:0:${#t}-11}
+    # Decrypt
+    val=${ofn: $ofn_len - $SECRET_EXT_LEN }
+    if [ $val == $SECRET_EXT ]; then
         
-        if [ -f "$ofn" ]; then
-            echo -e "Decrypting and writing secrets:\n"
-            echo -e "HOMEDIR: $GPGHOMEDIR"
-            echo -e "OFN: $ofn"
-            echo -e "NFN: $nfn"
-            sudo gpg --homedir $GPGHOMEDIR -dvv $ofn > $nfn
-        else
-            echo Warning: $ofn not found
+        nfn=${ofn: 0 : $ofn_len  - ($FILE_EXT_SEP_LEN + $SECRET_EXT_LEN) }
+
+        echo "Decrypting - '$ofn' -> '$nfn'"
+        sudo gpg --homedir $GPGHOMEDIR --yes -o $nfn -dq $ofn
+    fi
+
+    if [[ -n $nfn ]]; then
+        ofn=$nfn    # n chars are now stripped from end of file where n = ($FILE_EXT_SEP_LEN + $SECRET_EXT_LEN)
+        ofn_len=${#ofn}
+    fi
+    
+    # Move file if env extension matches current env
+    file_env_ext=${ofn: $ofn_len - $ENV_EXT_LEN : $ENV_EXT_LEN }
+    if [ $file_env_ext == $this_env ]; then
+        nfn=${ofn: 0 : $ofn_len  - ($ENV_EXT_LEN + $FILE_EXT_SEP_LEN) }
+        
+        echo "Copying - '$ofn' -> '$nfn'"
+        if [ ! -f "$ofn" ]; then
+            echo "Warning: $ofn not found. Skipping copy."
+            continue    # file does not exist
         fi
+        cp $ofn $nfn
     fi
 done
