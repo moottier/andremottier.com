@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <p>Project: {{ project_name }}</p>
+    <div class="columns">
+        <div class="column">1</div>
+        <div class="column">2</div>
+        <div class="column">3</div>
+        <div class="column">4</div>
+        <div class="column">5</div>
+      </div>
+      <span class="bulma-arrow-mixin"></span>
+      <button class="bulma-hamburger-mixin">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <button class="button">
+        Button
+      </button>
+      
+      <button class="button is-primary">
+        Primary button
+      </button>
+      
+      <button class="button is-large">
+        Large button
+      </button>
+      
+      <button class="button is-loading">
+        Loading button
+      </button>
+</div>
+{% endblock %}

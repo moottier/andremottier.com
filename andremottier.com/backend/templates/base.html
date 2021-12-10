@@ -6,7 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    
+    <!--COMMON CSS-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />-->
+    {% if config.FLASK_ENVIRONMENT == "production" %}
+    
+    <!--PRD CSS-->
+    <link rel="stylesheet" href="https://www.andremottier.com/css/main.css" />
+    {% elif config.FLASK_ENVIRONMENT == "development" %}
+    
+    <!--DEV CSS-->
+    <link rel="stylesheet" href="https://dev.andremottier.com/css/main.css" />
+    {% endif %}
 </head>
 
 <body>
@@ -21,6 +32,9 @@
                             <a href="{{ url_for('main.index') }}" class="navbar-item">
                                 Home
                             </a>
+                            <a class="navbar-item">
+                                Projects
+                            </span>
                             {% if current_user.is_authenticated %}
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
                                 Profile

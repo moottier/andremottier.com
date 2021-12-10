@@ -12,3 +12,8 @@ def index():
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
+
+@main.route('/project/<project_name>')
+@login_required
+def project(project_name):
+    return render_template('project.html', project_name=project_name)

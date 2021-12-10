@@ -1,0 +1,8 @@
+---
+db: "andremottier"
+db-user: "www-db"
+db-host: "localhost"
+db-port: "3306"
+app-env: "development"
+app-debug: "TRUE"
+registration-allowed: False
