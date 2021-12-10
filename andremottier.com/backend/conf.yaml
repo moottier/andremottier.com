@@ -3,6 +3,6 @@ db: "andremottier"
 db-user: "www-db"
 db-host: "localhost"
 db-port: "3306"
-app-env: "development"
-app-debug: "TRUE"
+app-env: "production"
+app-debug: "FALSE"
 registration-allowed: False
