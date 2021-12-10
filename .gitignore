@@ -151,8 +151,8 @@ cython_debug/
 !*.secret
 
 # App 
-backend/secrets.yaml
-backend/secrets.yaml.dev
-backend/secrets.yaml.prd
-backend/conf.yaml
+*secrets.yaml
+*secrets.yaml.dev
+*secrets.yaml.prd
+
 
