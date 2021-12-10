@@ -30,10 +30,10 @@ FILE_EXT_SEP_LEN=${#FILE_EXT_SEP}
 SECRET_EXT="secret"
 SECRET_EXT_LEN=${#SECRET_EXT}
 ENV_EXT_LEN=3    # 3 chars plus .
-TRACKED_FILES=( "backend/conf.yaml.dev"              \
-                "backend/conf.yaml.prd"              \
-                "backend/secrets.yaml.dev.secret"    \
-                "backend/secrets.yaml.prd.secret"    )
+TRACKED_FILES=( "andremottier.com/backend/conf.yaml.dev"              \
+                "andremottier.com/backend/conf.yaml.prd"              \
+                "andremottier.com/backend/secrets.yaml.dev.secret"    \
+                "andremottier.com/backend/secrets.yaml.prd.secret"    )
 
 # test cases
 #TRACKED_FILES=( "backend/exists.yaml.dev"           \    
