@@ -10305,4 +10305,15 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   padding: 3rem 1.5rem 6rem;
 }
 
+:root {
+  --navbarBreakpoint: 1024px;
+}
+
+.navbar-item.has-dropdown .navbar-dropdown {
+  display: none;
+}
+.navbar-item.has-dropdown.is-active .navbar-dropdown {
+  display: block;
+}
+
 /*# sourceMappingURL=main.css.map */
