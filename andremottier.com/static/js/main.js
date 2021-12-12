@@ -28,16 +28,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-function hideBulmaDropdown(elBulmaDropdownLink) {
-    /**
-     * Hides dropdown associated with elBulmaDropdownLink element
-     * 
-     * @param {element} elBulmaDropdownLink dropdown menu link element
-     * @return {nothing} 
-     */
-    elBulmaDropdownLink.parentElement.classList.remove(bulmaActive);
-}
-
 function getHamburgerBreakpointWidth() {
     /**
      * Returns maximum width in pixels where hamburger menu is visible
