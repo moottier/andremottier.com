@@ -6,7 +6,7 @@ const bulmaNavbarDropdownLinkSelector = '#navbarMenuHeroA .navbar-start .navbar-
 
 document.addEventListener('DOMContentLoaded', (event) => {
     // click to show/hide burger submenus
-    const dropdownLink = document.querySelector();
+    const dropdownLink = document.querySelector(bulmaNavbarDropdownLinkSelector);
     dropdownLink.addEventListener('click', function(){
         dropdownLink.parentElement.classList.toggle(bulmaActive);
     });
