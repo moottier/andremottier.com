@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
 from . import db
 
@@ -21,20 +21,22 @@ def project(project_name='#blahblah'):
 
 from flask import abort
 from jinja2 import TemplateNotFound
+name = 'chat_server_php'
 chat_server_php = Blueprint(
-    name='chat_server_php', 
+    name=name, 
     import_name=__name__,
-    # static_folder='static',
-    # static_url_path='chat-server/static'
+    static_folder='static',
+    static_url_path=f'/static/{name}',
     template_folder='',
     root_path='/var/www/dev.andremottier.com/PHP-Websockets'
 )
 
 @chat_server_php.route('/chat-server')
 def show():
-    #try:
-    return render_template(f'client.html')
-    # except TemplateNotFound:
-    #     import sys
-    #     #print("***TAG***: ", simple_page.static_folder, file=sys.stdout)
-    #     abort(404)
+    content = render_template('client.html')
+    return render_template(
+        'project.html', 
+        content=content,
+        scripts=[url_for(f'{name}.static' ,filename='script.js')],
+        styles=[url_for(f'{name}.static' ,filename='style.css')],
+    )
