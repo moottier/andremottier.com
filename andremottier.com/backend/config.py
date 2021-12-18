@@ -12,6 +12,10 @@ class AppConfigBuilder:
             self._conf = yaml.safe_load(strm_1)
             self._secrets = yaml.safe_load(strm_2)
 
+        # settings that are always applied
+        self.app.jinja_options["trim_blocks"] = True
+        self.app.jinja_options["lstrip_blocks"] = True
+
     def getSecret(self, key):
         return self._secrets[key]
 

@@ -23,20 +23,6 @@ def create_app():
     )
     config.setFlaskConfig()
     
-    print("Setting trim blocks", file=sys.stdout)
-    app.jinja_options["trim_blocks"] = True
-    print("Setting lstrip blocks", file=sys.stdout)
-    app.jinja_options["lstrip_blocks"] = True
-    print("done setting", file=sys.stdout)
-
-#    print("getting jinja settings from __init__", file=sys.stdout)
-#    print("trim_blocks: ", app.jinja_env.trim_blocks, file=sys.stdout)
-#    print("lstrip_blocks: ", app.jinja_env.lstrip_blocks, file=sys.stdout)
-
-#    print("trim_blocks: ")#, app.jinja_env.trim_blocks, file=sys.stdout)
-#    print("lstrip_blocks: ")#, app.jinja_env.lstrip_blocks, file=sys.stdout)
-
-
     db.init_app(app)
 
     login_manager = LoginManager()
