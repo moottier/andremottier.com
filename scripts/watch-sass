@@ -1,4 +1,0 @@
-#!/bin/bash
-WORKING_ROOT=$(git rev-parse --show-toplevel)
-echo "Watching sass"
-sass --watch $WORKING_ROOT/andremottier/static/sass:$WORKING_ROOT/andremottier/static/css

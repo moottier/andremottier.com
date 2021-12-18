@@ -28,7 +28,7 @@ chat_server_php = Blueprint(
     static_folder='static',
     static_url_path=f'/static/{name}',
     template_folder='',
-    root_path='/var/www/dev.andremottier.com/PHP-Websockets'
+    root_path='/var/www/dev.andremottier.com/lib/PHP-Websockets'
 )
 
 @chat_server_php.route('/chat-server')
