@@ -1,4 +1,8 @@
 {% extends "base.html" %}
-{% block content %}
-{{ content|safe }}
+{% block content_hero %}
+{{ content_hero|trim }}
+{% endblock %}
+{% block content_main %}
+<h1>{{ project_title }}</h1>
+{{ content_main|safe }}
 {% endblock %}

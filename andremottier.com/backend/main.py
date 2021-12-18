@@ -33,10 +33,17 @@ chat_server_php = Blueprint(
 
 @chat_server_php.route('/chat-server')
 def show():
-    content = render_template('client.html')
+    from flask import current_app
+    import sys
+    print("getting jinja settings from main", file=sys.stdout)
+    print("trim_blocks: ", current_app.jinja_env.trim_blocks, file=sys.stdout)
+    print("lstrip_blocks: ", current_app.jinja_env.lstrip_blocks, file=sys.stdout)
+
+    content_main = render_template('client.html')
     return render_template(
         'project.html', 
-        content=content,
-        scripts=[url_for(f'{name}.static' ,filename='script.js')],
-        styles=[url_for(f'{name}.static' ,filename='style.css')],
+        #project_title='PHP Chat Server with WebSocket',
+        content_main=content_main,
+        scripts=[url_for(f'{name}.static', filename='script.js')],
+        styles=[url_for(f'{name}.static', filename='style.css')],
     )
