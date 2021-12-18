@@ -9,9 +9,9 @@ import sys
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 if __file__.find('dev') > -1:
-    app_root = r'/var/www/dev.andremottier.com/andremottier/backend/'
+    app_root = r'/var/www/dev.andremottier.com/'
 else:
-    app_root = r'/var/www/andremottier.com/andremottier/backend/'
+    app_root = r'/var/www/andremottier.com/'
 
 def create_app():
     app = Flask(__name__)
