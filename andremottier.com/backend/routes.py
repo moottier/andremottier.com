@@ -36,6 +36,7 @@ def show():
     content_main = render_template('client.html')
     return render_template(
         'project.html',
+        project_title="PHP WebSocket Chat Server",
         content_main=content_main,
         scripts=[url_for(f'{name}.static', filename='script.js')],
         styles=[url_for(f'{name}.static', filename='style.css')],
