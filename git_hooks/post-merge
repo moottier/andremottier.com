@@ -1,2 +1,2 @@
 #!/bin/bash
-source $(git rev-parse --show-toplevel)/scripts/env-setup
+source $(git rev-parse --show-toplevel)/lib/scripts/env-setup
