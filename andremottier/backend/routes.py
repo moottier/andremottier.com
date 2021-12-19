@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
-from .. import db
+from andremottier import db
 
 main = Blueprint(
     name='main',
