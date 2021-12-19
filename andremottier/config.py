@@ -3,6 +3,7 @@ from andremottier.util import SecretGetter
 import yaml
 import os, sys
 
+#TODO: use Flask config api
 class AppConfigBuilder:
     def __init__(self, app, conf_path, secret_path):
         self.app = app
