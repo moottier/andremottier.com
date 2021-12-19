@@ -1,8 +1,14 @@
 from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
-from . import db
+from .. import db
 
-main = Blueprint('main', __name__)
+main = Blueprint(
+    name='main',
+    import_name=__name__,
+    root_path='/var/www/dev.andremottier.com/andremottier/backend',
+    template_folder='templates',
+    static_folder='../static'
+)
 
 @main.route('/')
 def index():
@@ -41,3 +47,4 @@ def show():
         scripts=[url_for(f'{name}.static', filename='script.js')],
         styles=[url_for(f'{name}.static', filename='style.css')],
     )
+    #return '<p>Routed</p>'

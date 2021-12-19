@@ -12,5 +12,5 @@ if __file__.find('dev') > -1:
 else:
     sys.path.insert(0,"/var/www/andremottier.com/")
 
-from andremottier.backend import create_app 
+from andremottier import create_app 
 application = create_app()
