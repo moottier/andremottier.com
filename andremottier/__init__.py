@@ -2,8 +2,8 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from andremottier.backend.util import SecretGetter
-from andremottier.backend.config import AppConfigBuilder
+from andremottier.util import SecretGetter
+from andremottier.config import AppConfigBuilder
 import sys
 
 # init SQLAlchemy so we can use it later in our models

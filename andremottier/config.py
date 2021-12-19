@@ -1,5 +1,5 @@
 from flask import Flask
-from andremottier.backend.util import SecretGetter
+from andremottier.util import SecretGetter
 import yaml
 import os, sys
 
