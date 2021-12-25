@@ -13,6 +13,9 @@ if __file__.find('dev') > -1:
 else:
     app_root = r'/var/www/andremottier.com/'
 
+def register_blueprints():
+    pass
+
 def create_app():
     app = Flask(__name__)
     
@@ -36,16 +39,16 @@ def create_app():
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
-    # blueprint for auth routes in our app
-    from andremottier.backend.auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint)
 
-    # blueprint for non-auth parts of app
     from andremottier.backend.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    # blueprint for non-auth parts of app
-    from andremottier.backend.routes import chat_server_php as chat_server_php_blueprint
-    app.register_blueprint(chat_server_php_blueprint)
+    from andremottier.backend.auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
 
+    from andremottier.projects.routes import projects as projects_blueprint
+    from andremottier.projects.projects.php_websocket_chat.routes import chat_server_php as chat_server_php_blueprint
+    projects_blueprint.register_blueprint(chat_server_php_blueprint)
+    app.register_blueprint(projects_blueprint)
+    
     return app
