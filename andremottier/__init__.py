@@ -47,8 +47,6 @@ def create_app():
     app.register_blueprint(auth_blueprint)
 
     from andremottier.projects.routes import projects as projects_blueprint
-    from andremottier.projects.projects.php_websocket_chat.routes import chat_server_php as chat_server_php_blueprint
-    projects_blueprint.register_blueprint(chat_server_php_blueprint)
     app.register_blueprint(projects_blueprint)
     
     return app
