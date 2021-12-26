@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from andremottier.util import SecretGetter
-from andremottier.config import AppConfigBuilder
+from andremottier.config import AppConfigBuilder, Config
 import sys
 
 # init SQLAlchemy so we can use it later in our models
@@ -16,15 +16,18 @@ else:
 def register_blueprints():
     pass
 
-def create_app():
+def create_app(config_class=None):    # TODO: make Config default arg
     app = Flask(__name__)
-    
-    config = AppConfigBuilder(
-        app, 
-        os.path.join(app_root, 'conf.yaml'),
-        os.path.join(app_root, 'secrets.yaml')
-    )
-    config.setFlaskConfig()
+
+    if (config_class):
+        app.config.from_object(config_class)
+    else:   
+        config = AppConfigBuilder(
+            app, 
+            os.path.join(app_root, 'conf.yaml'),
+            os.path.join(app_root, 'secrets.yaml')
+        )
+        config.setFlaskConfig()
     
     db.init_app(app)
 

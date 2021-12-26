@@ -4,6 +4,14 @@ import yaml
 import os, sys
 
 #TODO: use Flask config api
+
+class Config:
+    """
+    This class will replace AppConfigBuilder
+    currently it is only used to send in config for testing
+    """
+    def __init__
+
 class AppConfigBuilder:
     def __init__(self, app, conf_path, secret_path):
         self.app = app
