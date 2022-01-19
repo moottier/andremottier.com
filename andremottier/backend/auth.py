@@ -3,8 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from andremottier.backend.models import User
 from andremottier import db
-
-auth = Blueprint('auth', __name__)
+from andremottier.backend import auth
 
 @auth.route('/login')
 def login():

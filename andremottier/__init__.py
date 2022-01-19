@@ -52,4 +52,6 @@ def create_app(config_class=None):    # TODO: make Config default arg
     from andremottier.projects.routes import projects as projects_blueprint
     app.register_blueprint(projects_blueprint)
     
+    print(app.url_map, file=sys.stdout)
+
     return app

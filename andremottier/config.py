@@ -10,7 +10,8 @@ class Config:
     This class will replace AppConfigBuilder
     currently it is only used to send in config for testing
     """
-    def __init__
+    def __init__(self):
+        pass
 
 class AppConfigBuilder:
     def __init__(self, app, conf_path, secret_path):

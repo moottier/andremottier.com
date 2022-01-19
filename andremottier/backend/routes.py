@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from andremottier import db
+from andremottier.backend import main
 
-main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
