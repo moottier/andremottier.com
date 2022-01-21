@@ -3,33 +3,18 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from andremottier.util import SecretGetter
-from andremottier.config import AppConfigBuilder, Config
+from andremottier.config import Config
 import sys
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
-if __file__.find('dev') > -1:
-    app_root = r'/var/www/dev.andremottier.com/'
-else:
-    app_root = r'/var/www/andremottier.com/'
 
-def register_blueprints():
-    pass
-
-def create_app(config_class=None):    # TODO: make Config default arg
+def create_app(config_class=Config):    # TODO: make Config default arg
     app = Flask(__name__)
-
-    if (config_class):
-        app.config.from_object(config_class)
-    else:   
-        config = AppConfigBuilder(
-            app, 
-            os.path.join(app_root, 'conf.yaml'),
-            os.path.join(app_root, 'secrets.yaml')
-        )
-        config.setFlaskConfig()
-    
+    app.config.from_object(config_class)
     db.init_app(app)
+
+    print("SECRET KEY: ", app.config["SECRET_KEY"])
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -49,9 +34,8 @@ def create_app(config_class=None):    # TODO: make Config default arg
     from andremottier.backend.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    # TODO: necessary to register project blueprints if not visiting projects endpoint?
     from andremottier.projects.routes import projects as projects_blueprint
     app.register_blueprint(projects_blueprint)
-    
-    print(app.url_map, file=sys.stdout)
 
     return app
