@@ -14,8 +14,6 @@ def create_app(config_class=Config):    # TODO: make Config default arg
     app.config.from_object(config_class)
     db.init_app(app)
 
-    print("SECRET KEY: ", app.config["SECRET_KEY"])
-
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
