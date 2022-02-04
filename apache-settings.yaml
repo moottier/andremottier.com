@@ -1,0 +1,33 @@
+GLOBAL:
+    RE_PATTERN: ({\s*.*?\s*})
+    FOUT_KEY: SitesAvailableFilePath
+www.andremottier.com:
+    SitesAvailableFilePath: /etc/apache2/sites-available/www.andremottier.com.conf
+    RedirectPermanent: https://www.andremottier.com
+    ServerName: dev.andremottier.com
+    ServerAlias: www.andremottier.com
+    WSGIDaemonProcessName: wsgi-prd-andremottier
+    WSGIScriptAliasDirectoryPath: /var/www/andremottier.com/app.wsgi
+    WSGIProcessGroup: wsgi-prd-andremottier
+    ErrorLogFilePath: ${APACHE_LOG_DIR}/andremottier.com_error.log
+    CustomLogFile: ${APACHE_LOG_DIR}/andremottier.com_access.log
+    AliasCssBulmaDirectoryPath: /var/www/andremottier.com/lib/node_modules/bulma/css
+    AliasStaticChatServerPhpDirectoryPath: /var/www/andremottier.com/lib/PHP-Websockets/static
+    AliasCssDirectoryPath: /var/www/andremottier.com/andremottier/static/css
+    AliasJsDirectoryPath: /var/www/andremottier.com/andremottier/static/js
+    AliasFaviconDirectoryPath: /var/www/andremottier.com/andremottier/static/favicon.ico
+dev.andremottier.com:
+    SitesAvailableFilePath: /etc/apache2/sites-available/dev.andremottier.com.conf
+    RedirectPermanent: https://dev.andremottier.com
+    ServerName: dev.andremottier.com
+    ServerAlias: dev.andremottier.com
+    WSGIDaemonProcessName: wsgi-dev-andremottier
+    WSGIScriptAliasDirectoryPath: /var/www/dev.andremottier.com/app.wsgi
+    WSGIProcessGroup: wsgi-dev-andremottier
+    ErrorLogFilePath: ${APACHE_LOG_DIR}/dev.andremottier.com_error.log
+    CustomLogFile: ${APACHE_LOG_DIR}/dev.andremottier.com_access.log
+    AliasCssBulmaDirectoryPath: /var/www/dev.andremottier.com/lib/node_modules/bulma/css
+    AliasStaticChatServerPhpDirectoryPath: /var/www/dev.andremottier.com/lib/PHP-Websockets/static
+    AliasCssDirectoryPath: /var/www/dev.andremottier.com/andremottier/static/css
+    AliasJsDirectoryPath: /var/www/dev.andremottier.com/andremottier/static/js
+    AliasFaviconDirectoryPath: /var/www/dev.andremottier.com/andremottier/static/favicon.ico
