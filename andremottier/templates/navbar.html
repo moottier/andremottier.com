@@ -25,17 +25,17 @@
                     </a>
             
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="{{ url_for('projects.index') }}">
                             About
                         </a>
-                        <a class="navbar-item">
-                            Jobs
+                        <a class="navbar-item" href="{{ url_for('projects.chat_page.index') }}">
+                            Chat Server
                         </a>
                         <a class="navbar-item">
                             Contact
                         </a>
                         <hr class="navbar-divider">
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="https://github.com/moottier/andremottier.com/issues">
                             Report an issue
                         </a>
                     </div>
