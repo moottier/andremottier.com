@@ -1,16 +1,24 @@
 {% extends "base.html" %}
 
 {% block content_main %}
-<h1>{{ project_title }}</h1>
-{% if project_server_active %}
-<div class="notification is-primary">
-    The chat server is currently <strong>online</strong>. Try it out below!
-</div>
-{% else %}
-<div class="notification is-danger">
-    The chat server is currently <strong>offline</strong>. Click "Restart" to try and restart the server.
-    <button class="button">Restart</button>
-</div>
-{% endif %}
-{{ content_main|safe }}
+<section class="section">
+    <h1 class="title">{{ project_title }}</h1>
+    <div class="columns is-mobile">        
+        {% if project_server_active %}
+        <div class="notification is-primary column is-two-thirds">
+            The chat server is currently <strong>online</strong>. Try it out below!
+        </div>
+        {% else %}
+        <div class="is-narrow column">
+            <button class="button is-warning">Restart</button>
+        </div>
+        <div class="notification is-danger column is-three-quarters">
+            The chat server is currently <strong>offline</strong>. Click "Restart" to try and restart the server.
+        </div>
+        {% endif %}
+    </div>
+    <div class="block">
+    {{ content_main|safe }}
+    </div>
+</section>
 {% endblock %}
