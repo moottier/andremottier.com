@@ -18,23 +18,20 @@
 </head>
 
 <body class="has-navbar-fixed-top">
+    {% include 'navbar.html' %}
+    
     {% if self.content_hero() %}
     <section class="hero is-fullheight">
-    {% else %}
-    <section class="hero">
-    {% endif %}
-        <div class="hero-head">
-        {% include 'navbar.html' %}
-        </div>
-        {% if self.content_hero() %}
         <div class="hero-body">
             <div class="container has-text-centered">
             {% block content_hero %}
             {% endblock %}
             </div>
         </div>
-        {% endif %}
     </section>
+    {% else %}
+        <p>Selfless!</p>
+    {% endif %}
     <section class="container">
     {% block content_main %}
     {% endblock %}

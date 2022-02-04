@@ -12,6 +12,8 @@ db = SQLAlchemy()
 def create_app(config_class=Config):    # TODO: make Config default arg
     app = Flask(__name__)
     app.config.from_object(config_class)
+    app.jinja_env.trim_blocks = True
+    app.jinja_env.lstrip_blocks = True
     db.init_app(app)
 
     login_manager = LoginManager()
