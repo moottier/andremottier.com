@@ -5,16 +5,27 @@ const bulmaActive = 'is-active';
 const bulmaNavbarDropdownLinkSelector = '#navbarMenuHeroA .navbar-start .navbar-item.has-dropdown .navbar-link';
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    // click to show/hide burger submenus
+
+    // init
     const dropdownLink = document.querySelector(bulmaNavbarDropdownLinkSelector);
-    dropdownLink.addEventListener('click', function(){
+    const dropdownUrlDefault = dropdownLink.href;
+    dropdownLink.addEventListener('click', function(){    // click to show/hide burger submenus
         dropdownLink.parentElement.classList.toggle(bulmaActive);
     });
+
+    if (!isHamburgerActive()) {
+        dropdownLink.href = dropdownUrlDefault;
+    } else {
+        dropdownLink.href = "javascript:;";
+    }
 
     // hide bulma burger submenus on screen resize
     window.addEventListener('resize', function() {
         if (!isHamburgerActive()) { 
             dropdownLink.parentElement.classList.remove(bulmaActive);
+            dropdownLink.href = dropdownUrlDefault;
+        } else {
+            dropdownLink.href = "javascript:;";
         }
     });
 
