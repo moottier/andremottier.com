@@ -1,0 +1,3 @@
+[submodule "PHP-Websockets"]
+	path = PHP-Websockets
+	url = https://github.com/moottier/PHP-Websockets

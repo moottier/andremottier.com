@@ -1,0 +1,14 @@
+@use '../../../lib/node_modules/bulma/bulma'
+
+// copy bulma variables into css variables for use by JS
+:root
+    --navbarBreakpoint: #{bulma.$navbar-breakpoint}
+
+.navbar-item
+    &.has-dropdown
+        .navbar-dropdown
+             display: none
+      
+        &.is-active
+            .navbar-dropdown
+                display: block

@@ -1,4 +1,0 @@
-#!/bin/bash
-WORKING_ROOT=$(git rev-parse --show-toplevel)
-echo "Compiling sass"
-sass $WORKING_ROOT/andremottier.com/static/sass:$WORKING_ROOT/andremottier.com/static/css
