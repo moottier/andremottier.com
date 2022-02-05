@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content_main %}
+<ul>
+{% if site_map %}
+<table class="table">
+    <thead>
+        <th>Rule</th>
+        <th>Methods</th>
+        <th>Endpoint</th>
+    </thead>
+    <tbody>
+        {% for rule in site_map %}
+        <tr>
+            <td>{{ rule[0] }}</td>
+            <td>{{ rule[1] }}</td>
+            <td>{{ rule[2] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}
+
+</ul>
+{% endblock %}
