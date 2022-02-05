@@ -15,7 +15,8 @@ def profile():
 @main.route('/site-map')
 @login_required
 def site_map():
-    #site_map = [item.string for item in list(current_app.url_map.iter_rules())]
-    site_map = [(item.rule, item.methods, item.endpoint) for item in current_app.url_map.iter_rules()]
-    #site_map = dir(list(current_app.url_map.iter_rules())[0])
+    site_map = [
+        (item.rule, item.methods, item.endpoint) 
+        for item in current_app.url_map.iter_rules()
+        ]
     return render_template('site-map.html', site_map=site_map)
