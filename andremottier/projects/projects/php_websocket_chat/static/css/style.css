@@ -1,0 +1,17 @@
+.column.is-full-height {
+    padding: 0 0.75rem;
+}
+
+#log {
+    border-radius: 4px;
+    border: solid 1px #dbdbdb;
+    height: min(500px, 45vh);
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#log > :first-child {
+    margin-top: auto !important;
+    /* use !important to prevent breakage from child margin settings */
+}

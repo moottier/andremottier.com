@@ -10,7 +10,10 @@ def index():
         project_title="PHP WebSocket Chat Server",
         content_main=client(),
         scripts=[url_for(f'projects.chat_page.php_chat_client.static', filename='script.js')],
-        styles=[url_for(f'projects.chat_page.php_chat_client.static', filename='style.css')],
+        styles=[
+                url_for(f'projects.chat_page.php_chat_client.static', filename='style.css')
+                ,url_for(f'projects.chat_page.static', filename='css/style.css')
+                ],
     )
 
 @chat_server_client.route('/')

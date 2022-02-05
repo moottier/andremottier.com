@@ -4,14 +4,7 @@
 <section class="section">
     <h1 class="title">{{ project_title }}</h1>
     <div class="columns is-mobile">        
-        {% if project_server_active %}
-        <div class="notification is-primary column is-two-thirds">
-            The chat server is currently <strong>online</strong>. Try it out below!
-        </div>
-        {% else %}
-        <div class="is-narrow column">
-            <button class="button is-warning">Restart</button>
-        </div>
+        {% if not project_server_active %}
         <div class="notification is-danger column is-three-quarters">
             The chat server is currently <strong>offline</strong>. Click "Restart" to try and restart the server.
         </div>
