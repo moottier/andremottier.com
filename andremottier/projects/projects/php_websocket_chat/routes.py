@@ -9,6 +9,8 @@ def index():
         'project.html',
         project_title="PHP WebSocket Chat Server",
         content_main=client(),
+        project_server_active=True,
+        test="toast",
         scripts=[url_for(f'projects.chat_page.php_chat_client.static', filename='script.js')],
         styles=[
                 url_for(f'projects.chat_page.php_chat_client.static', filename='style.css')
