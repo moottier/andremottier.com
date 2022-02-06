@@ -11,7 +11,10 @@ def index():
         content_main=client(),
         project_server_active=True,
         test="toast",
-        scripts=[url_for(f'projects.chat_page.php_chat_client.static', filename='script.js')],
+        scripts=[
+            url_for(f'projects.chat_page.php_chat_client.static', filename='script.js')
+            ,"https://kit.fontawesome.com/1863f96517.js"
+            ],
         styles=[
                 url_for(f'projects.chat_page.php_chat_client.static', filename='style.css')
                 ,url_for(f'projects.chat_page.static', filename='css/style.css')
