@@ -2,7 +2,8 @@
 
 {% block content_main %}
 <section class="section">
-    <h1 class="title">{{ project_title }}</h1>
+    <h1 class="title is-1">{{ project_title }}</h1>
+    <h3 class="subtitle is-3">An exploration of websockets.</h1>
     <div class="columns is-mobile">        
         {% if not project_server_active %}
         <div class="notification is-danger column is-three-quarters">
@@ -12,6 +13,21 @@
     </div>
     <div class="block">
     {{ content_main|safe }}
+    </div>
+</section>
+<section class="section">
+    <div class="content">
+        <h2 class="title is-2">Project Details</h2>
+        <p>This chat server was based on a fork of <a href="https://github.com/ghedipunk/PHP-Websockets">ghedipunk/PHP-Websockets</a>. The original repo implemented a server class able to:</p>
+        <ul>
+            <li>create and listen on a socket on the server</li>
+            <li>parse and then handle responses to new and existing connections</li>
+            <li>echo properly formatted client messages</li>
+            <li>disconnect errored sockets</li>
+        </ul>
+        <p>The original library also includes a simple client capable of establishing a WebSocket connection and then sending and receiving messages.</p>
+        <p>The server class was subclassed to broadcast messages instead of echo. Both the client and server were modified to handle JSON messages. A user class that was previously used to hold a unique ID and socket was modified to hold an alias. Hooks were added to the client to update the DOM when a user alias is assigned. The server was modified to assign an alias to each user using the body of the first message.</p> 
+        <h3 class="title is-3"></h3>
     </div>
 </section>
 {% endblock %}
