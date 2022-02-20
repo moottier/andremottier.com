@@ -3,7 +3,6 @@ from flask_login import login_required
 from andremottier.projects.projects.php_websocket_chat import chat_server_php, chat_server_client
 
 @chat_server_php.route('/')
-@login_required
 def index():
     return render_template(
         'project.html',
@@ -22,6 +21,5 @@ def index():
     )
 
 @chat_server_client.route('/')
-@login_required
 def client():
     return render_template('client.html')
