@@ -12,3 +12,11 @@
         &.is-active
             .navbar-dropdown
                 display: block
+.image
+    &.is-square
+        &.is-512x512-from-tablet
+            @include bulma.from(#{bulma.$tablet})
+                height: 512px
+                width: 512px
+                padding-top: 0%
+                margin: 0 auto

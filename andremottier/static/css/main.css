@@ -10316,4 +10316,13 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   display: block;
 }
 
+@media screen and (min-width: 769px) {
+  .image.is-square.is-512x512-from-tablet {
+    height: 512px;
+    width: 512px;
+    padding-top: 0%;
+    margin: 0 auto;
+  }
+}
+
 /*# sourceMappingURL=main.css.map */
