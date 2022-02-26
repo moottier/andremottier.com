@@ -1,4 +1,5 @@
 from PIL import Image
+from PIL.Image import Image as T_Image
 from typing import List, Tuple, Union
 from argparse import ArgumentParser
 import sys, re, os
@@ -7,23 +8,24 @@ import sys, re, os
 Number = Union[float, int]
 ImageSize = Tuple[Number, Number]    # L x H
 
-def resize(path: str, size: ImageSize) -> Image:
-    try:
-        with Image.open(path) as img:
-            img = img.resize(size)
-            split_path = os.path.splitext(path)
-            img.save(f'{split_path[0]}-{size[0]}x{size[1]}{split_path[1]}')
-    except:
-        raise IOError(f'Could\'t save resized image: {path}')
+def resize(path: str, size: ImageSize) -> T_Image:
+    with Image.open(path) as img:
+        img = img.resize(size)
+    return img
 
+def save_image(img: T_Image, path):
+    split_path = os.path.splitext(path)
+    img.save(f'{split_path[0]}-{size[0]}x{size[1]}{split_path[1]}')
+    
 def parse_size(size: str) -> ImageSize:
     size = size.lower()
     regx = re.compile(r'^(\d+)x(\d+)$')
-    try:
-        groups = regx.match(size).groups()
-        groups = (int(groups[0]), int(groups[1]))
-    except:
+    matches = regx.match(size)
+    if matches: 
+        groups = matches.groups()
+    else:
         raise ValueError(f"Invalid size while parsing: {size}")
+    groups = (int(groups[0]), int(groups[1]))    
     return groups
 
 def validate_size(size: str) -> bool:
@@ -47,14 +49,14 @@ def validate_path(path: str) -> bool:
 def get_sizes(sizes: List[str]) -> List[ImageSize]:
     image_sizes = []
     for size in sizes:
-        if not validate_size(size): raise SizeArgumentError(f'Invalid size: {size}')    
+        if not validate_size(size): raise ValueError(f'Invalid size: {size}')    
         image_sizes.append(parse_size(size))            
     return image_sizes
 
 def resize_images(image_paths: List[str], image_sizes: List[ImageSize]):
     for path in image_paths:
-        for size in get_sizes(image_sizes):
-            resize(path, size)
+        for size in image_sizes:
+            img = resize(path, size)
 
 def get_parser() -> ArgumentParser:
     parser = ArgumentParser(description='Resize images')
@@ -70,6 +72,7 @@ if __name__ == '__main__':
         if not validate_path(path): raise FileNotFoundError('File not found: {path}')
     for size in args.sizes:
         if not validate_size(size): raise ValueError('Invalid size: {size}')
-
-    resize_images(args.img_paths, args.sizes)
+    
+    img_sizes = get_sizes(args.sizes)
+    resize_images(args.img_paths, img_sizes)
     
