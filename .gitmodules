@@ -1,9 +1,6 @@
 [submodule "PHP-Websockets"]
 	path = PHP-Websockets
 	url = https://github.com/moottier/PHP-Websockets
-[submodule "image_resizer"]
-	path = image_resizer
-	url = /var/www/dev.andremottier.com/andremottier/projects/projects/image_resizer/image_resizer
 [submodule "andremottier/projects/projects/image_resizer/image_resizer"]
 	path = andremottier/projects/projects/image_resizer/image_resizer
 	url = https://github.com/moottier/image_resizer.git
