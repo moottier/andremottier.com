@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content_main %}
+<section class="section">
+    <h1 class="title is-1">{{ project_title }}</h1>
+    <div class="columns">
+        <div class="column is-one-third">
+            <div class="field">
+                <div class="file has-name">
+                    <label class="file-label">
+                        <input id="resize-file" class="file-input" type="file" name="resume" accept=".gif,.ico,.png,.webp,.jpeg,.jpg">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose a file…
+                            </span>
+                        </span>
+                    </label>
+                    <span class="file-name">
+                        Screen Shot 2017-07-29 at 15.54.25.png
+                    </span>
+                </div>
+                <p class="help">Max filesize 5 MB</p>
+            </div>
+            <div class="field">
+                <label class="label">Height</label>
+                <div class="control">
+                  <input class="input" type="number" size="5" placeholder="New height">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Width</label>
+                <div class="control">
+                  <input class="input" type="number" size="5" placeholder="New width">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                  <button class="button is-link">Resize</button>
+                </div>
+            </div>
+        </div>
+        <div class="column is-two-thirds">
+            <picture id="resize-file-preview" class="image is-square is-512x512-from-tablet">
+                <source srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+            </picture>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="content">
+        <h2 class="title is-2">Project Details</h2>
+        <h3 class="title is-3">Background</h3>
+        <h3 class="title is-3">Next Steps</h3>
+        <p>If you have a suggestion or find an issue free to submit an issue <a href="https://github.com/moottier/image_resizer/issues">pull request</a>.</p> 
+    </div>
+</section>
+{% endblock %}
