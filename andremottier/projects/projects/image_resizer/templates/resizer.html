@@ -19,9 +19,7 @@
                                 </span>
                             </span>
                         </label>
-                        <span class="file-name">
-                            Screen Shot 2017-07-29 at 15.54.25.png
-                        </span>
+                        <span id="resize-file-name" class="file-name"></span>
                     </div>
                     <p class="help">Max filesize 5 MB</p>
                 </div>
@@ -43,7 +41,7 @@
                     </div>
                 </div>
             </form>
-            <span>Download your file <a id="resize-file-download" href="javascript:;">here</a></span>
+            <div id="resize-file-download-wrap" class="hidden notification is-link is-light">Download your file <a id="resize-file-download" href="javascript:;">here</a></div>
         </div>
         <div class="column is-two-thirds">
             <picture id="resize-file-preview" class="image is-square is-512x512-from-tablet">

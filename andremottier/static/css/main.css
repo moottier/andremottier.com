@@ -10325,4 +10325,12 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   }
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: unset;
+}
+
 /*# sourceMappingURL=main.css.map */

@@ -5,17 +5,23 @@ window.onload=function(){
     inputElement.addEventListener("change", handleSelectedFiles, false);
     submitElement.addEventListener("click", handleFormSubmit, false);
     submitElement.addEventListener("touchend", handleFormSubmit, false);
-    init();
+    window.addEventListener('DOMContentLoaded', init, false);
 }
 
+
 function init() {
+    document.getElementById('resize-file-download-wrap').style.visibility = 'hidden';
     setPictureSourceInit();
-    setFileName('null');
+    setFileName();
 }
 
 function validateSelectedFile(fileList) {
+    if (!fileList.length == 1) { return false; }
+    
+    const file = fileList[0];
     if (!file.type.startsWith('image/')){ return false; }
-    if !(0 < file.size < 5000000) { return false; }
+    if (!(0 < file.size < 5000000)) { return false; }
+    
     return true;
 }
 
@@ -23,7 +29,7 @@ function validateForm(fd) {
     const width = fd.get('width');
     const height = fd.get('height')
     const file = fd.get('file');
-    if !(width && height && file) { return false; }
+    if (!(width && height && file)) { return false; }
     if (!isNaN(width) && !isNaN(height)) { return false; }
 
     files = document.getElementById('resize-file').files;
@@ -34,21 +40,25 @@ function validateForm(fd) {
 function handleInvalidFileSelection() { 
     setPictureSourceInit();
     showStatus();
-    setFileName('null');
+    setFileName();
 }
 
 function handleInvalidForm() { 
     setPictureSourceInit();
     showStatus();
-    setFileName('null');
+    setFileName();
 }
 
 function showStatus() {
     // do nothing
 }
 
-function setFileName(name) {
-    // do nothing
+function setFileName(name = null) {
+    el = document.getElementById('resize-file-name');
+    name = name || 'No selection';
+    el.innerText = name;
+    // console.log(el);
+    // console.log(name);
 }
 
 function setPictureSource(el, src) {
@@ -64,20 +74,21 @@ function setPictureSourceInit() {
 
 function handleSelectedFiles(e) {
     
-    console.log(e);  // DBG
+    // console.log(e);  // DBG
     
     let files = e.srcElement.files;
     if (validateSelectedFile(files)) {
         const file = files[0];
         
-        console.log(file.type);  // DBG
+        // console.log(file.type);  // DBG
 
         const preview = document.getElementById("resize-file-preview");
         
         const reader = new FileReader();
         reader.onload = (function(aPreview) { return function(e) { 
+            console.log(file.name);
             setPictureSource(aPreview, e.target.result); 
-            setFileName('null');
+            setFileName(file.name);
         }; })(preview);
         reader.readAsDataURL(file);
 
@@ -96,14 +107,14 @@ function handleFormSubmitResponse(e) {
     if (e.srcElement.status == 200) {
         URL = window.URL;
         url = URL.createObjectURL(this.response);
-        console.log(this.response);
+        // console.log(this.response);
         //console.log(this.response.blob());
         
         const link = document.getElementById("resize-file-download");
         link.href = url;
-        console.log(url);
+        // console.log(url);
         link.download = getResponseFileDownloadName(this.getResponseHeader('Content-Disposition'));
-        console.log(link.download);    // can get filename from here
+        // console.log(link.download);    // can get filename from here
     } else {
         showStatus();
     }
@@ -115,13 +126,13 @@ function handleFormSubmit(e) {
     if (validateForm(fd)) {
         let xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
-        console.log(fd.get('file'));
+        // console.log(fd.get('file'));
 
         xhr.onloadend = handleFormSubmitResponse;
         xhr.open("POST", e.srcElement.form.target);
         xhr.send(fd);
     } else {
-        console.log("Inalid!");   // dgb
+        // console.log("Inalid!");   // dgb
         handleInvalidForm();
     }
 }
