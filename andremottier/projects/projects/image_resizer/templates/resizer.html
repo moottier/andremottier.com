@@ -5,7 +5,7 @@
     <h1 class="title is-1">{{ project_title }}</h1>
     <div class="columns">
         <div class="column is-one-third">
-            <form id="resize-file-form" name="resize-file-form" target="submit">            
+            <form id="resize-file-form" name="resize-file-form" class="block" target="submit">            
                 <div class="field">
                     <div class="file has-name">
                         <label class="file-label">
@@ -41,7 +41,8 @@
                     </div>
                 </div>
             </form>
-            <div id="resize-file-download-wrap" class="hidden notification is-link is-light">Download your file <a id="resize-file-download" href="javascript:;">here</a></div>
+            <div id="resize-file-download-wrap" class="block hidden notification is-link is-light">Download your file <a id="resize-file-download" href="javascript:;">here</a></div>
+            <div id="resize-file-message" class="block hidden undisplayed notification is-danger is-light">Error!</div>
         </div>
         <div class="column is-two-thirds">
             <picture id="resize-file-preview" class="image is-square is-512x512-from-tablet">

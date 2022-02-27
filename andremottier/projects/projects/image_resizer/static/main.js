@@ -5,13 +5,13 @@ window.onload=function(){
     inputElement.addEventListener("change", handleSelectedFiles, false);
     submitElement.addEventListener("click", handleFormSubmit, false);
     submitElement.addEventListener("touchend", handleFormSubmit, false);
-    window.addEventListener('DOMContentLoaded', init, false);
+    init();
 }
 
 
 function init() {
-    document.getElementById('resize-file-download-wrap').style.visibility = 'hidden';
     setPictureSourceInit();
+    hideStatus();
     setFileName();
 }
 
@@ -30,7 +30,7 @@ function validateForm(fd) {
     const height = fd.get('height')
     const file = fd.get('file');
     if (!(width && height && file)) { return false; }
-    if (!isNaN(width) && !isNaN(height)) { return false; }
+    if (isNaN(width) || isNaN(height)) { return false; }
 
     files = document.getElementById('resize-file').files;
     if (!validateSelectedFile(files)) { return false; }    
@@ -39,24 +39,51 @@ function validateForm(fd) {
 
 function handleInvalidFileSelection() { 
     setPictureSourceInit();
-    showStatus();
+    showStatus("Invalid file selection.", true);
     setFileName();
 }
 
-function handleInvalidForm() { 
-    setPictureSourceInit();
-    showStatus();
-    setFileName();
+function handleInvalidForm() {
+    showStatus("Invalid form inputs.", true);
 }
 
-function showStatus() {
-    // do nothing
+function getDownloadMessage(filename, url) {
+    return 'Download your file <a id="resize-file-download" href="javascript:;">here</a>'
+}
+
+function showStatus(msg, isError=false) {
+    elDlWrp = document.getElementById('resize-file-download-wrap');
+    elDl = document.getElementById('resize-file-download');
+    elMsg = document.getElementById('resize-file-message');
+    
+    if (isError) {
+        elMsg.classList.toggle('hidden', false);
+        elMsg.classList.toggle('undisplayed', false);
+        elDlWrp.classList.toggle('hidden', true);
+        elDlWrp.classList.toggle('undisplayed', true);
+        elMsg.innerText = msg;
+    } else {
+        elMsg.classList.toggle('hidden', true);
+        elMsg.classList.toggle('undisplayed', true);
+        elDlWrp.classList.toggle('hidden', false);
+        elDlWrp.classList.toggle('undisplayed', false);
+    }
+}
+
+function hideStatus() {
+    elDlWrp = document.getElementById('resize-file-download-wrap');
+    elMsg = document.getElementById('resize-file-message');
+    elMsg.classList.toggle('hidden', true);
+    elMsg.classList.toggle('undisplayed', true);
+    elDlWrp.classList.toggle('hidden', true);
+    elDlWrp.classList.toggle('undisplayed', false);
 }
 
 function setFileName(name = null) {
     el = document.getElementById('resize-file-name');
     name = name || 'No selection';
     el.innerText = name;
+    console.log("Name: " + name);
     // console.log(el);
     // console.log(name);
 }
@@ -75,7 +102,7 @@ function setPictureSourceInit() {
 function handleSelectedFiles(e) {
     
     // console.log(e);  // DBG
-    
+    hideStatus();
     let files = e.srcElement.files;
     if (validateSelectedFile(files)) {
         const file = files[0];
@@ -83,7 +110,6 @@ function handleSelectedFiles(e) {
         // console.log(file.type);  // DBG
 
         const preview = document.getElementById("resize-file-preview");
-        
         const reader = new FileReader();
         reader.onload = (function(aPreview) { return function(e) { 
             console.log(file.name);
@@ -116,12 +142,13 @@ function handleFormSubmitResponse(e) {
         link.download = getResponseFileDownloadName(this.getResponseHeader('Content-Disposition'));
         // console.log(link.download);    // can get filename from here
     } else {
-        showStatus();
+        showStatus("Server error.", true);
     }
 }
 
 function handleFormSubmit(e) {
     e.preventDefault();
+    hideStatus();
     let fd = new FormData(e.srcElement.form);
     if (validateForm(fd)) {
         let xhr = new XMLHttpRequest();
