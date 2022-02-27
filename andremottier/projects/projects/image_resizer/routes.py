@@ -1,6 +1,9 @@
 from flask import render_template, url_for, jsonify, request, send_file
 import io
 from andremottier.projects.projects.image_resizer import image_resizer
+from .image_resizer import resizer
+
+from PIL import Image
 
 def validate_request():
     return True
@@ -22,7 +25,12 @@ def submit():
         pass    # error
     else:
         file = request.files.getlist('file')[0]
-        file = file.read()
-        return send_file(io.BytesIO(file), download_name='new name.jpg')
+        size = (int(request.form['width']), int(request.form['height']))
+        img = resizer.resize(io.BytesIO(file.read()), size)
+        format = resizer.get_PIL_format_from_mimetype(file.mimetype)
         
-    
+        img_io_out = io.BytesIO()
+        resizer.save_image(img, img_io_out, format=format)
+        img_io_out.seek(0)
+        
+        return send_file(img_io_out, download_name=file.filename, mimetype=file.mimetype)

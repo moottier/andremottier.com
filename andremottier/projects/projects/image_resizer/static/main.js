@@ -76,15 +76,24 @@ function handleSelectedFiles(e) {
     }
   }
 
+function getResponseFileDownloadName(contentDispositionHeader) {
+    let cdh = contentDispositionHeader;
+    return cdh.substr(cdh.indexOf("filename=")+"filename=".length);
+}
+
 function handleFormSubmitResponse(e) {
     console.log(e);//.srcElement.responseText);
     if (e.srcElement.status == 200) {
         URL = window.URL;
-        url = URL.createObjectURL(new Blob([this.response]));
+        url = URL.createObjectURL(this.response);
+        console.log(this.response);
+        //console.log(this.response.blob());
         
         const link = document.getElementById("resize-file-download");
         link.href = url;
-        link.download = "aDefaultFileName.txt";
+        console.log(url);
+        link.download = getResponseFileDownloadName(this.getResponseHeader('Content-Disposition'));
+        console.log(link.download);    // can get filename from here
     } else {
         showError();
     }
@@ -95,7 +104,7 @@ function handleFormSubmit(e) {
     if (validateForm()) {
         let fd = new FormData(e.srcElement.form);
         let xhr = new XMLHttpRequest();
-
+        xhr.responseType = 'blob';
         console.log(fd.get('file'));
 
         xhr.onloadend = handleFormSubmitResponse;
