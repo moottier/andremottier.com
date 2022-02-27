@@ -125,7 +125,9 @@ function handleSelectedFiles(e) {
 
 function getResponseFileDownloadName(contentDispositionHeader) {
     let cdh = contentDispositionHeader;
-    return cdh.substr(cdh.indexOf("filename=")+"filename=".length);
+    cdh = cdh.substr(cdh.indexOf("filename=")+"filename=".length);
+    cdh = cdh.replaceAll('"','');
+    return cdh;
 }
 
 function handleFormSubmitResponse(e) {
@@ -138,9 +140,11 @@ function handleFormSubmitResponse(e) {
         
         const link = document.getElementById("resize-file-download");
         link.href = url;
-        // console.log(url);
         link.download = getResponseFileDownloadName(this.getResponseHeader('Content-Disposition'));
-        // console.log(link.download);    // can get filename from here
+        showStatus();
+        
+        const preview = document.getElementById("resize-file-preview");
+        setPictureSource(preview, link.href);
     } else {
         showStatus("Server error.", true);
     }
