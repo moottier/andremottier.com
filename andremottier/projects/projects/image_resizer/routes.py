@@ -60,4 +60,6 @@ def submit():
         resizer.save_image(img, img_io_out, format=format)
         img_io_out.seek(0)
         
-        return send_file(img_io_out, download_name=file.filename, mimetype=file.mimetype)
+        fn = file.filename or f'Resized Image.{format}'
+        fn = resizer.get_new_name(fn, size)
+        return send_file(img_io_out, download_name=fn, mimetype=file.mimetype)

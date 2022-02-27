@@ -14,28 +14,36 @@ function init() {
 }
 
 function validateSelectedFile(fileList) {
-    // do nothing
+    if (!file.type.startsWith('image/')){ return false; }
+    if !(0 < file.size < 5000000) { return false; }
     return true;
 }
 
-function validateForm() {
-    // do nothing
+function validateForm(fd) {
+    const width = fd.get('width');
+    const height = fd.get('height')
+    const file = fd.get('file');
+    if !(width && height && file) { return false; }
+    if (!isNaN(width) && !isNaN(height)) { return false; }
+
+    files = document.getElementById('resize-file').files;
+    if (!validateSelectedFile(files)) { return false; }    
     return true;
 }
 
 function handleInvalidFileSelection() { 
     setPictureSourceInit();
-    showError();
+    showStatus();
     setFileName('null');
 }
 
 function handleInvalidForm() { 
     setPictureSourceInit();
-    showError();
+    showStatus();
     setFileName('null');
 }
 
-function showError() {
+function showStatus() {
     // do nothing
 }
 
@@ -55,13 +63,15 @@ function setPictureSourceInit() {
 }
 
 function handleSelectedFiles(e) {
+    
     console.log(e);  // DBG
+    
     let files = e.srcElement.files;
     if (validateSelectedFile(files)) {
         const file = files[0];
-        console.log(file.type);  // DBG
-        if (!file.type.startsWith('image/')){ handleInvalidFileSelection(); }
         
+        console.log(file.type);  // DBG
+
         const preview = document.getElementById("resize-file-preview");
         
         const reader = new FileReader();
@@ -95,14 +105,14 @@ function handleFormSubmitResponse(e) {
         link.download = getResponseFileDownloadName(this.getResponseHeader('Content-Disposition'));
         console.log(link.download);    // can get filename from here
     } else {
-        showError();
+        showStatus();
     }
 }
 
 function handleFormSubmit(e) {
     e.preventDefault();
-    if (validateForm()) {
-        let fd = new FormData(e.srcElement.form);
+    let fd = new FormData(e.srcElement.form);
+    if (validateForm(fd)) {
         let xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
         console.log(fd.get('file'));
