@@ -45,12 +45,6 @@ def get_link(innerHTML, href, attributes=None):
 @image_resizer.route('/submit', methods=['POST'])
 def submit():
     if validate_request():
-        # print(validate_request)
-        # issue = get_link('issue', 'https://github.com/moottier/image_resizer/issues')
-        err_msg = ""
-        # flash(err_msg)    # need ajax
-        return err_msg, 500
-    else:
         file = request.files.getlist('file')[0]
         size = (int(request.form['width']), int(request.form['height']))
         img = resizer.resize(io.BytesIO(file.read()), size)
@@ -63,3 +57,8 @@ def submit():
         fn = file.filename or f'Resized Image.{format}'
         fn = resizer.get_new_name(fn, size)
         return send_file(img_io_out, download_name=fn, mimetype=file.mimetype)
+    else:
+        # issue = get_link('issue', 'https://github.com/moottier/image_resizer/issues')
+        err_msg = ""
+        # flash(err_msg)    # need ajax
+        return "", 500
