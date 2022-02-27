@@ -10329,16 +10329,8 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   visibility: hidden;
 }
 
-.visible {
-  visibility: unset;
-}
-
 .undisplayed {
   display: none;
-}
-
-.displayed {
-  display: unset;
 }
 
 /*# sourceMappingURL=main.css.map */
