@@ -1,11 +1,5 @@
-<!-- <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation"> -->
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-    <!-- <div class="container"> -->
         <div class="navbar-brand">
-            <!-- <a class="navbar-item">
-                <img src="" width="112" height="28">
-            </a> -->
-        
             <a id="navbarMenuButtonBurger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuHeroA">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -20,21 +14,14 @@
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <!-- <a class="navbar-link" id="findMe" href="{{ url_for('projects.index') }}"> -->
                     <a class="navbar-link" id="findMe" href="javascript:;">
                         Projects
                     </a>
             
                     <div class="navbar-dropdown">
-                        <!-- <a class="navbar-item" href="{{ url_for('projects.index') }}">
-                            About
-                        </a> -->
                         <a class="navbar-item" href="{{ url_for('projects.chat_page.index') }}">
                             Chat Server
                         </a>
-                        <!-- <a class="navbar-item">
-                            Contact
-                        </a> -->
                         <hr class="navbar-divider">
                         <a class="navbar-item" href="https://github.com/moottier/andremottier.com/issues">
                             Report an issue
@@ -63,5 +50,4 @@
                 {% endif %}
             </div>
         </div>
-    <!-- </div> -->
 </nav>
