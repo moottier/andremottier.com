@@ -6,7 +6,8 @@ from andremottier.projects.projects.php_websocket_chat import chat_server_php, c
 def index():
     return render_template(
         'project.html',
-        project_title="PHP WebSocket Chat Server",
+        project_title="WebSocket Chat Server",
+        page_title="Chat",
         content_main=client(),
         project_server_active=True,
         test="toast",

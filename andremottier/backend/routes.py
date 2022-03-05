@@ -10,13 +10,13 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.name)
+    return render_template('profile.html', name=current_user.name, page_title='Profile')
 
-@main.route('/site-map')
+@main.route('/url-map')
 @login_required
-def site_map():
-    site_map = [
+def url_map():
+    url_map = [
         (item.rule, item.methods, item.endpoint) 
         for item in current_app.url_map.iter_rules()
         ]
-    return render_template('site-map.html', site_map=site_map)
+    return render_template('url-map.html', url_map=url_map, page_title='Url Map')

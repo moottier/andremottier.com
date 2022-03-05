@@ -6,5 +6,5 @@ from andremottier.projects import projects
 @login_required
 def index():
     return render_template(
-        'showcase.html',
+        'showcase.html', page_title='Projects'
     )

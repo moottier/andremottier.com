@@ -31,6 +31,7 @@ def index():
     return render_template(
         'resizer.html',
         project_title="Image Resizer",
+        page_title='Image Resizer',
         scripts=[
             "https://kit.fontawesome.com/1863f96517.js",
              url_for(f'projects.image_resizer.static', filename='main.js')],

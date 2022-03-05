@@ -2,7 +2,7 @@
 
 {% block content_main %}
 <ul>
-{% if site_map %}
+{% if url_map %}
 <table class="table">
     <thead>
         <th>Rule</th>
@@ -10,7 +10,7 @@
         <th>Endpoint</th>
     </thead>
     <tbody>
-        {% for rule in site_map %}
+        {% for rule in url_map %}
         <tr>
             <td>{{ rule[0] }}</td>
             <td>{{ rule[1] }}</td>

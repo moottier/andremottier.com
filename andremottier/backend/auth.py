@@ -7,13 +7,13 @@ from andremottier.backend import auth
 
 @auth.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', page_title='Login')
 
 
 @auth.route('/signup', methods=['GET'])
 def signup():
     registration_allowed = current_app.config['REGISTRATION_ALLOWED']
-    return render_template('signup.html', registration_allowed=registration_allowed)
+    return render_template('signup.html', registration_allowed=registration_allowed, page_title='Signup')
 
 @auth.route('/logout')
 @login_required
