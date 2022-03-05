@@ -1,13 +1,26 @@
 {% extends "base.html" %}
 
-{% block content_hero %}
-<picture class="image is-square is-512x512-from-tablet">
-    <img class="is-rounded" src="/img/IMG_0487.jpg">
-</picture>
+{% block content_hero_head %}
+<div class="column is-centered is-half-tablet is-one-third-fullhd">
+    <div class="container has-text-centered">
 <h1 class="title">
-Homepage coming soon!
+    ANDRE MOTTIER
 </h1>
 <h2 class="subtitle">
-Feel free to look at my projects.
+    THE ODYSSEY OF A DEVELOPER
 </h2>
+</div></div>
+{% endblock %}
+{% block content_hero %}
+<div class="block">
+    <picture class="image is-square">
+        <img class="is-rounded" src="/img/IMG_0487.jpg">
+    </picture>
+</div>
+<div class="block content has-text-left mx-auto">
+    <p>Welcome to my portfolio.</p>
+    <p>I'm a developer with a chemistry background. In other words, I went to school to be a chemist and picked up programming along the way.</p>
+    <p>Works for me!</p>
+</div>
+
 {% endblock %}

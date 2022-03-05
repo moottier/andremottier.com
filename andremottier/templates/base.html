@@ -25,11 +25,25 @@
     {% include 'navbar.html' %}
     
     {% if self.content_hero() %}
-    <section class="hero is-fullheight">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-            {% block content_hero %}
+    <section class="hero is-fullheight-with-navbar">
+        <div class="hero-head columns is-centered mx-0">
+            {% block content_hero_head %}
             {% endblock %}
+        </div>
+        <div class="hero-body columns is-centered mx-0">
+            <div class="column is-half-tablet is-one-third-fullhd">
+                <div class="container has-text-centered">
+                {% block content_hero %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="hero-foot columns is-centered m-0">
+            <div class="column is-half-tablet is-one-third-fullhd">
+                <div class="container has-text-centered">
+                {% block content_hero_foot %}
+                {% endblock %}
+                </div>
             </div>
         </div>
     </section>

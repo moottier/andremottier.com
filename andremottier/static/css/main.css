@@ -10333,4 +10333,12 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   display: none;
 }
 
+.is-min-width-70vw {
+  min-width: 70vw;
+}
+
+.is-max-width-512 {
+  max-width: 512px;
+}
+
 /*# sourceMappingURL=main.css.map */
