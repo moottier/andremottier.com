@@ -4,3 +4,6 @@
 [submodule "andremottier/projects/projects/image_resizer/image_resizer"]
 	path = andremottier/projects/projects/image_resizer/image_resizer
 	url = https://github.com/moottier/image_resizer.git
+[submodule "andremottier/projects/projects/algorithms/andremottier/projects/projects/algorithms/introduction-to-algorithms"]
+	path = andremottier/projects/projects/algorithms/andremottier/projects/projects/algorithms/introduction-to-algorithms
+	url = https://moottier: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@github.com/moottier/introduction-to-algorithms.git
